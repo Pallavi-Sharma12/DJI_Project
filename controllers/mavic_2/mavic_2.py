@@ -72,7 +72,7 @@ class Mavic (Robot):
             if self.target_index > len(waypoints) - 1:
                 self.target_index = len(waypoints) - 1
             self.target_position[0:2] = waypoints[self.target_index]
-            print("Drone 1 - Current Target reached! New target: ", self.target_position[0:2])
+            print("Drone 2 - Current Target reached! New target: ", self.target_position[0:2])
 
         # This will be in ]-pi;pi]
         self.target_position[2] = np.arctan2(
@@ -105,7 +105,7 @@ class Mavic (Robot):
         yaw_disturbance = 0
 
         # Specify the patrol coordinates
-        waypoints = [[26, 30], [10, 13], [50, 15], [26, 30]]
+        waypoints = [[26, -10], [10.5, 8.5], [50.5, 9.5], [26, -10]]
         # target altitude of the robot in meters
         self.target_altitude = 11
 

@@ -4,6 +4,10 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/floors/protos/Floor.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/appearances/protos/SandyGround.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/trees/protos/Forest.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/rocks/protos/Rock.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/obstacles/protos/OilBarrel.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/samples/curriculum/protos/Obstacle.proto"
 
 WorldInfo {
   physics "my_physics"
@@ -17,7 +21,7 @@ WorldInfo {
 }
 Viewpoint {
   orientation 0 0 1 4.71238898038469
-  position 29.483104065175286 98.6858293109313 10.68747224228979
+  position 31.932080964335235 84.11058229055878 8.735062851005459
 }
 TexturedBackground {
   luminosity 0.5
@@ -31,7 +35,23 @@ TexturedBackgroundLight {
 Floor {
   size 1000 1000
   appearance SandyGround {
+    colorOverride 0.6 1 0.6
   }
+}
+OilBarrel {
+  translation 10 0 0.44
+  height 1
+  radius 0.4
+}
+Rock {
+  translation 30 0 0.2
+  name "rock1"
+  scale 5
+}
+Rock {
+  translation 10 21 0.2
+  name "rock2"
+  scale 5
 }
 Robot {
   translation 25.999988465418813 30.00000018550618 0.06558356635048795
@@ -638,7 +658,7 @@ Robot {
             ]
             endPoint Solid {
               translation 0.000625212 -0.00530346 -0.0207448
-              rotation 0 1 0 0.1763863061004253
+              rotation 0 1 0 0.17638630610042452
               children [
                 Shape {
                   appearance USE METAL_APPEARANCE
@@ -1029,6 +1049,1001 @@ Robot {
   controller "mavic"
 }
 Robot {
+  translation 26.1 -10 0.165584
+  rotation 8.539876808287134e-05 -0.9999999963147744 -8.803490051671651e-06 0.07008728064644687
+  children [
+    DEF BODY_SLOT Group {
+      children [
+        DEF DS_1 DistanceSensor {
+          translation 0.075 0 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                metalness 0
+              }
+              geometry DEF sensor1 Box {
+                size 0.005 0.005 0.005
+              }
+            }
+          ]
+          name "ds_1"
+          boundingObject USE sensor1
+          physics Physics {
+          }
+          lookupTable [
+            0 0 0
+            0.4 1000 0
+          ]
+        }
+        DEF DS_2 DistanceSensor {
+          translation 0.061 0.164 0
+          rotation 0 0 1 0.9
+          children [
+            DEF sensor2 Shape {
+              appearance PBRAppearance {
+                metalness 0
+              }
+              geometry Box {
+                size 0.005 0.005 0.005
+              }
+            }
+          ]
+          name "ds_2"
+          boundingObject USE sensor2
+          physics Physics {
+          }
+          lookupTable [
+            0 0 0
+            0.3 1000 0
+          ]
+        }
+        DEF DS_3 DistanceSensor {
+          translation 0.061 -0.164 0
+          rotation 0 0 1 -0.9
+          children [
+            DEF sensor3 Shape {
+              appearance PBRAppearance {
+                metalness 0
+              }
+              geometry Box {
+                size 0.005 0.005 0.005
+              }
+            }
+          ]
+          name "ds_3"
+          boundingObject USE sensor3
+          physics Physics {
+          }
+          lookupTable [
+            0 0 0
+            0.3 1000 0
+          ]
+        }
+        DEF DS_4 DistanceSensor {
+          translation -0.184 0.135 -0.02
+          rotation 0.38176852332554023 0.8483744962789783 0.3667608330523124 2.87
+          children [
+            DEF sensor4 Shape {
+              appearance PBRAppearance {
+                metalness 0
+              }
+              geometry Box {
+                size 0.005 0.005 0.005
+              }
+            }
+          ]
+          name "ds_4"
+          boundingObject USE sensor4
+          physics Physics {
+          }
+          lookupTable [
+            0 0 0
+            0.3 1000 0
+          ]
+        }
+        DEF DS_5 DistanceSensor {
+          translation -0.184 -0.135 -0.02
+          rotation -0.24669110010907935 0.6852530558585538 0.6852530558585538 -2.582155613280012
+          children [
+            DEF sensor5 Shape {
+              appearance PBRAppearance {
+                metalness 0
+              }
+              geometry Box {
+                size 0.005 0.005 0.005
+              }
+            }
+          ]
+          name "ds_5"
+          boundingObject USE sensor5
+          physics Physics {
+          }
+          lookupTable [
+            0 0 0
+            0.3 1000 0
+          ]
+        }
+      ]
+    }
+    Shape {
+      appearance DEF GREY_PLASTIC PBRAppearance {
+        baseColor 0.5 0.5 0.5
+        roughness 0.8
+        metalness 0
+      }
+      geometry Mesh {
+        url [
+          "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/body.obj"
+        ]
+      }
+    }
+    Shape {
+      appearance DEF METAL_APPEARANCE PBRAppearance {
+        roughness 0.5
+      }
+      geometry Mesh {
+        url [
+          "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/body_metal_parts.obj"
+        ]
+      }
+    }
+    Shape {
+      appearance DEF GLASS PBRAppearance {
+        baseColor 0.523146 0.8 0.627785
+        transparency 0.9
+        roughness 0.5
+        metalness 0
+      }
+      geometry Mesh {
+        url [
+          "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/body_lenses.obj"
+        ]
+      }
+    }
+    DEF COMPASS Compass {
+    }
+    DEF GPS GPS {
+    }
+    DEF GYRO Gyro {
+    }
+    DEF INERTIAL_UNIT InertialUnit {
+    }
+    DEF REAR_LEFT_HP_HELIX Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust -0.177179 0.127453 -0.0320282
+      thrustConstants -0.00026 0
+      torqueConstants 5.2e-06 0
+      fastHelixThreshold 50
+      device RotationalMotor {
+        name "rear left propeller"
+        maxVelocity 576
+        maxTorque 30
+      }
+      fastHelix Solid {
+        translation -0.177179 0.127453 -0.0320282
+        children [
+          Shape {
+            appearance USE METAL_APPEARANCE
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_a_joint.obj"
+              ]
+            }
+          }
+          Shape {
+            appearance GlossyPaint {
+              baseColor 0.1 0.1 0.1
+            }
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_a_plates.obj"
+              ]
+            }
+          }
+          Pose {
+            translation 0 0 0.02
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0.5 0.5 0.5
+                  baseColorMap ImageTexture {
+                    url [
+                      "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/default/protos/textures/fast_helix.png"
+                    ]
+                  }
+                  metalness 0
+                }
+                geometry Cylinder {
+                  height 0.001
+                  radius 0.12
+                  side FALSE
+                }
+              }
+            ]
+          }
+        ]
+        boundingObject Group {
+          children [
+            Pose {
+              translation 0 0 0.015
+              children [
+                Cylinder {
+                  height 0.025
+                  radius 0.12
+                }
+              ]
+            }
+          ]
+        }
+        physics Physics {
+          density -1
+          mass 0.1
+        }
+      }
+      slowHelix Solid {
+        translation -0.177179 0.127453 -0.0320282
+        rotation 0 0 1 2.9363160828772257
+        children [
+          Shape {
+            appearance USE GREY_PLASTIC
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_a.obj"
+              ]
+            }
+          }
+          Shape {
+            appearance USE METAL_APPEARANCE
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_a_joint.obj"
+              ]
+            }
+          }
+          Shape {
+            appearance GlossyPaint {
+              baseColor 0.1 0.1 0.1
+            }
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_a_plates.obj"
+              ]
+            }
+          }
+        ]
+        name "rear left propeller"
+        boundingObject Group {
+          children [
+            Pose {
+              translation 0 0 0.015
+              children [
+                Cylinder {
+                  height 0.025
+                  radius 0.013
+                }
+              ]
+            }
+            Pose {
+              translation 0 0 0.023
+              rotation 0 0 1 0.7854
+              children [
+                Box {
+                  size 0.23 0.018 0.005
+                }
+              ]
+            }
+          ]
+        }
+        physics Physics {
+          density -1
+          mass 0.1
+        }
+      }
+    }
+    DEF REAR_RIGHT_HP_HELIX Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust -0.177179 -0.127453 -0.0320282
+      thrustConstants 0.00026 0
+      torqueConstants 5.2e-06 0
+      fastHelixThreshold 50
+      device RotationalMotor {
+        name "rear right propeller"
+        maxVelocity 576
+        maxTorque 30
+      }
+      fastHelix Solid {
+        translation -0.177179 -0.127453 -0.0320282
+        children [
+          Shape {
+            appearance USE METAL_APPEARANCE
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_b_joint.obj"
+              ]
+            }
+          }
+          Shape {
+            appearance GlossyPaint {
+              baseColor 0.1 0.1 0.1
+            }
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_b_plates.obj"
+              ]
+            }
+          }
+          Pose {
+            translation 0 0 0.02
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0.5 0.5 0.5
+                  baseColorMap ImageTexture {
+                    url [
+                      "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/default/protos/textures/fast_helix.png"
+                    ]
+                  }
+                  metalness 0
+                }
+                geometry Cylinder {
+                  height 0.001
+                  radius 0.12
+                  side FALSE
+                }
+              }
+            ]
+          }
+        ]
+        boundingObject Group {
+          children [
+            Pose {
+              translation 0 0 0.015
+              children [
+                Cylinder {
+                  height 0.025
+                  radius 0.12
+                }
+              ]
+            }
+          ]
+        }
+        physics Physics {
+          density -1
+          mass 0.1
+        }
+      }
+      slowHelix Solid {
+        translation -0.177179 -0.127453 -0.0320282
+        rotation 0 0 1 1.562984671757592
+        children [
+          Shape {
+            appearance MattePaint {
+              baseColor 0.5 0.5 0.5
+            }
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_b.obj"
+              ]
+            }
+          }
+          Shape {
+            appearance USE METAL_APPEARANCE
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_b_joint.obj"
+              ]
+            }
+          }
+          Shape {
+            appearance GlossyPaint {
+              baseColor 0.1 0.1 0.1
+            }
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_b_plates.obj"
+              ]
+            }
+          }
+        ]
+        name "rear right propeller"
+        boundingObject Group {
+          children [
+            Pose {
+              translation 0 0 0.015
+              children [
+                Cylinder {
+                  height 0.025
+                  radius 0.013
+                }
+              ]
+            }
+            Pose {
+              translation 0 0 0.023
+              rotation 0 0 1 -0.7854
+              children [
+                Box {
+                  size 0.23 0.018 0.005
+                }
+              ]
+            }
+          ]
+        }
+        physics Physics {
+          density -1
+          mass 0.1
+        }
+      }
+    }
+    DEF FRONT_RIGHT_HP_HELIX Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust 0.0548537 -0.151294 -0.00280468
+      thrustConstants -0.00026 0
+      torqueConstants 5.2e-06 0
+      fastHelixThreshold 50
+      device RotationalMotor {
+        name "front right propeller"
+        maxVelocity 576
+        maxTorque 30
+      }
+      fastHelix Solid {
+        translation 0.0548537 -0.151294 -0.00280468
+        children [
+          Shape {
+            appearance USE METAL_APPEARANCE
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_a_joint.obj"
+              ]
+            }
+          }
+          Shape {
+            appearance GlossyPaint {
+              baseColor 0.1 0.1 0.1
+            }
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_a_plates.obj"
+              ]
+            }
+          }
+          Pose {
+            translation 0 0 0.02
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0.5 0.5 0.5
+                  baseColorMap ImageTexture {
+                    url [
+                      "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/default/protos/textures/fast_helix.png"
+                    ]
+                  }
+                  metalness 0
+                }
+                geometry Cylinder {
+                  height 0.001
+                  radius 0.12
+                  side FALSE
+                }
+              }
+            ]
+          }
+        ]
+        boundingObject Group {
+          children [
+            Pose {
+              translation 0 0 0.015
+              children [
+                Cylinder {
+                  height 0.025
+                  radius 0.12
+                }
+              ]
+            }
+          ]
+        }
+        physics Physics {
+          density -1
+          mass 0.1
+        }
+      }
+      slowHelix Solid {
+        translation 0.0548537 -0.151294 -0.00280468
+        rotation 0 0 -1 0.023720099917863943
+        children [
+          Shape {
+            appearance MattePaint {
+              baseColor 0.5 0.5 0.5
+            }
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_a.obj"
+              ]
+            }
+          }
+          Shape {
+            appearance USE METAL_APPEARANCE
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_a_joint.obj"
+              ]
+            }
+          }
+          Shape {
+            appearance GlossyPaint {
+              baseColor 0.1 0.1 0.1
+            }
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_a_plates.obj"
+              ]
+            }
+          }
+        ]
+        name "front right propeller"
+        boundingObject Group {
+          children [
+            Pose {
+              translation 0 0 0.015
+              children [
+                Cylinder {
+                  height 0.025
+                  radius 0.013
+                }
+              ]
+            }
+            Pose {
+              translation 0 0 0.023
+              rotation 0 0 1 0.7854
+              children [
+                Box {
+                  size 0.23 0.018 0.005
+                }
+              ]
+            }
+          ]
+        }
+        physics Physics {
+          density -1
+          mass 0.1
+        }
+      }
+    }
+    DEF CAMERA_YAW HingeJoint {
+      jointParameters HingeJointParameters {
+        position 9.358639655646067e-09
+        axis 0 0 1
+        anchor 0.0412774 -0.00469654 -0.00405862
+      }
+      device [
+        RotationalMotor {
+          name "camera yaw"
+          minPosition -1.7
+          maxPosition 1.7
+        }
+        PositionSensor {
+          name "camera yaw sensor"
+        }
+      ]
+      endPoint Solid {
+        translation 0.0412774 -0.00469654 -0.00405862
+        children [
+          Shape {
+            appearance USE METAL_APPEARANCE
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/camera_yaw.obj"
+              ]
+            }
+          }
+          DEF CAMERA_PITCH HingeJoint {
+            jointParameters HingeJointParameters {
+              position 0.6999856453549871
+              axis 0 1 0
+              anchor 0.000625212 -0.00530346 -0.0207448
+            }
+            device [
+              RotationalMotor {
+                name "camera pitch"
+                minPosition -0.5
+                maxPosition 1.7
+              }
+              PositionSensor {
+                name "camera pitch sensor"
+              }
+            ]
+            endPoint Solid {
+              translation 0.000625212 -0.00530346 -0.0207448
+              rotation 0 1 0 0.17638630610042452
+              children [
+                Shape {
+                  appearance USE METAL_APPEARANCE
+                  geometry Mesh {
+                    url [
+                      "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/camera_pitch.obj"
+                    ]
+                  }
+                }
+                DEF CAMERA_ROLL HingeJoint {
+                  jointParameters HingeJointParameters {
+                    position -7.610558956536317e-09
+                    anchor 0.00754686 0.0160388 -0.00586401
+                  }
+                  device [
+                    RotationalMotor {
+                      name "camera roll"
+                      minPosition -0.5
+                      maxPosition 0.5
+                    }
+                    PositionSensor {
+                      name "camera roll sensor"
+                    }
+                  ]
+                  endPoint Solid {
+                    translation 0.00754686 0.0160388 -0.00586401
+                    rotation 1 0 0 0
+                    children [
+                      Shape {
+                        appearance USE METAL_APPEARANCE
+                        geometry Mesh {
+                          url [
+                            "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/camera_chassis.obj"
+                          ]
+                        }
+                      }
+                      Shape {
+                        appearance USE GLASS
+                        geometry Mesh {
+                          url [
+                            "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/camera_lens.obj"
+                          ]
+                        }
+                      }
+                      DEF CAMERA_SLOT Pose {
+                        children [
+                          Camera {
+                            width 400
+                            height 240
+                          }
+                        ]
+                      }
+                    ]
+                    name "camera roll"
+                    boundingObject Pose {
+                      translation -0.00915058 -1.86265e-08 -0.000983764
+                      children [
+                        Box {
+                          size 0.0236511 0.0205141 0.0225186
+                        }
+                      ]
+                    }
+                    physics Physics {
+                      density -1
+                      mass 0.0333
+                    }
+                  }
+                }
+              ]
+              name "camera pitch"
+              boundingObject Pose {
+                translation -0.00248347 0.00776876 0.00183829
+                children [
+                  Box {
+                    size 0.0239878 0.0349393 0.0314891
+                  }
+                ]
+              }
+              physics Physics {
+                density -1
+                mass 0.0333
+              }
+            }
+          }
+        ]
+        name "camera yaw"
+        boundingObject Pose {
+          translation -1.86265e-09 -0.00304481 -0.0140589
+          children [
+            Box {
+              size 0.0208626 0.0260333 0.0307844
+            }
+          ]
+        }
+        physics Physics {
+          density -1
+          mass 0.0333
+        }
+      }
+    }
+    DEF LED_RIGHT LED {
+      children [
+        Pose {
+          translation 0.0617 -0.1654 -0.0074
+          children [
+            Shape {
+              appearance PBRAppearance {
+                roughness 0.2
+                metalness 0.5
+                emissiveIntensity 50
+              }
+              geometry Mesh {
+                url [
+                  "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/front_led.obj"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+      name "front right led"
+      boundingObject Pose {
+        translation 0.060348 -0.163659 -0.00760072
+        children [
+          Box {
+            size 0.0152149 0.0106945 0.00694674
+          }
+        ]
+      }
+      physics Physics {
+        density -1
+        mass 0.0035
+      }
+    }
+    DEF LED_LEFT LED {
+      children [
+        Pose {
+          translation 0.0617 0.1654 -0.0074
+          rotation 0 0 1 2.1944
+          children [
+            Shape {
+              appearance PBRAppearance {
+                roughness 0.2
+                metalness 0.5
+                emissiveIntensity 50
+              }
+              geometry Mesh {
+                url [
+                  "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/front_led.obj"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+      name "front left led"
+      boundingObject Pose {
+        translation 0.060348 0.163919 -0.00760069
+        children [
+          Box {
+            size 0.0152149 0.0106945 0.0069468
+          }
+        ]
+      }
+      physics Physics {
+        density -1
+        mass 0.0035
+      }
+    }
+    DEF FRONT_LEFT_HP_HELIX Propeller {
+      shaftAxis 0 0 1
+      centerOfThrust 0.0548537 0.151294 -0.00280468
+      thrustConstants 0.00026 0
+      torqueConstants 5.2e-06 0
+      fastHelixThreshold 50
+      device RotationalMotor {
+        name "front left propeller"
+        maxVelocity 576
+        maxTorque 30
+      }
+      fastHelix Solid {
+        translation 0.0548537 0.151294 -0.00280468
+        children [
+          Shape {
+            appearance USE METAL_APPEARANCE
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_b_joint.obj"
+              ]
+            }
+          }
+          Shape {
+            appearance GlossyPaint {
+              baseColor 0.1 0.1 0.1
+            }
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_b_plates.obj"
+              ]
+            }
+          }
+          Pose {
+            translation 0 0 0.02
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0.5 0.5 0.5
+                  baseColorMap ImageTexture {
+                    url [
+                      "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/default/protos/textures/fast_helix.png"
+                    ]
+                  }
+                  metalness 0
+                }
+                geometry Cylinder {
+                  height 0.001
+                  radius 0.12
+                  side FALSE
+                }
+              }
+            ]
+          }
+        ]
+        boundingObject Group {
+          children [
+            Pose {
+              translation 0 0 0.015
+              children [
+                Cylinder {
+                  height 0.025
+                  radius 0.12
+                }
+              ]
+            }
+          ]
+        }
+        physics Physics {
+          density -1
+          mass 0.1
+        }
+      }
+      slowHelix Solid {
+        translation 0.0548537 0.151294 -0.00280468
+        rotation 0 0 1 2.7846948774858618
+        children [
+          Shape {
+            appearance MattePaint {
+              baseColor 0.5 0.5 0.5
+            }
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_b.obj"
+              ]
+            }
+          }
+          Shape {
+            appearance USE METAL_APPEARANCE
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_b_joint.obj"
+              ]
+            }
+          }
+          Shape {
+            appearance GlossyPaint {
+              baseColor 0.1 0.1 0.1
+            }
+            geometry Mesh {
+              url [
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro/meshes/helix_b_plates.obj"
+              ]
+            }
+          }
+        ]
+        name "front left propeller"
+        boundingObject Group {
+          children [
+            Pose {
+              translation 0 0 0.015
+              children [
+                Cylinder {
+                  height 0.025
+                  radius 0.013
+                }
+              ]
+            }
+            Pose {
+              translation 0 0 0.023
+              rotation 0 0 1 -0.7854
+              children [
+                Box {
+                  size 0.23 0.018 0.005
+                }
+              ]
+            }
+          ]
+        }
+        physics Physics {
+          density -1
+          mass 0.1
+        }
+      }
+    }
+  ]
+  name "Mavic 2 PRO_2"
+  model "DJI Mavic 2 PRO"
+  boundingObject Group {
+    children [
+      Pose {
+        translation -0.03 0 0.002
+        children [
+          Box {
+            size 0.21 0.085 0.027
+          }
+        ]
+      }
+      Pose {
+        translation -0.06 0 -0.03
+        children [
+          Box {
+            size 0.15 0.06 0.053
+          }
+        ]
+      }
+      Pose {
+        translation 0.03 0.09 -0.001
+        rotation 0 0 1 -0.3926996938995747
+        children [
+          Box {
+            size 0.01 0.15 0.025
+          }
+        ]
+      }
+      Pose {
+        translation 0.03 -0.09 -0.001
+        rotation 0 0 1 0.3927
+        children [
+          Box {
+            size 0.01 0.15 0.025
+          }
+        ]
+      }
+      Pose {
+        translation -0.138 0.08 -0.032
+        rotation 0 0 1 0.68
+        children [
+          Box {
+            size 0.01 0.12 0.018
+          }
+        ]
+      }
+      Pose {
+        translation -0.138 -0.08 -0.032
+        rotation 0 0 1 -0.68
+        children [
+          Box {
+            size 0.01 0.12 0.018
+          }
+        ]
+      }
+      Pose {
+        translation 0.06 0.15 -0.039
+        rotation 1 0 0 -0.29
+        children [
+          Box {
+            size 0.01 0.014 0.06
+          }
+        ]
+      }
+      Pose {
+        translation 0.06 -0.15 -0.039
+        rotation 1 0 0 0.29
+        children [
+          Box {
+            size 0.01 0.014 0.06
+          }
+        ]
+      }
+    ]
+  }
+  physics Physics {
+    density -1
+    mass 0.4
+    centerOfMass [
+      -0.088 0 -0.04
+    ]
+  }
+  controller "mavic_2"
+}
+Robot {
   translation 10 10 5
   rotation -1 0 0 -5.307179586466759e-06
   children [
@@ -1075,8 +2090,8 @@ Robot {
                     }
                   ]
                   endPoint Solid {
-                    translation -0.8635064649523112 -1.7296067562180908 0.2125524603683599
-                    rotation 0.39127024002166183 0.1556655298595064 -0.9070147970606379 5.0251316471356
+                    translation -0.8635064649523112 -1.7296067562180908 0.21255246036836006
+                    rotation 0.39127024002166183 0.15566552985950646 -0.9070147970606381 5.0251316471356
                     children [
                       Shape {
                         appearance PBRAppearance {
@@ -1110,8 +2125,8 @@ Robot {
                     }
                   ]
                   endPoint Solid {
-                    translation -1.6249731028776921 -1.603047076545229 0.20315504353949354
-                    rotation -0.34759385205102217 -0.12383562975043434 0.9294316816316546 0.8305794220631809
+                    translation -1.6249731028776924 -1.603047076545229 0.20315504353949376
+                    rotation -0.3475938520510219 -0.12383562975043422 0.9294316816316548 0.8305794220631815
                     children [
                       Shape {
                         appearance PBRAppearance {
@@ -1146,8 +2161,8 @@ Robot {
                     }
                   ]
                   endPoint Solid {
-                    translation -1.6249731028776928 -1.6030470765452298 0.2031550435394936
-                    rotation -0.34759385205102217 -0.12383562975043434 0.9294316816316546 0.8305794220631809
+                    translation -1.6249731028776928 -1.6030470765452298 0.20315504353949382
+                    rotation -0.3475938520510219 -0.12383562975043422 0.9294316816316548 0.8305794220631815
                     children [
                       Shape {
                         appearance PBRAppearance {
@@ -1251,8 +2266,8 @@ Robot {
                     }
                   ]
                   endPoint Solid {
-                    translation -0.8635064649523112 -1.7296067562180908 0.2125524603683599
-                    rotation 0.39127024002166183 0.1556655298595064 -0.9070147970606379 5.0251316471356
+                    translation -0.8635064649523112 -1.7296067562180908 0.21255246036836006
+                    rotation 0.39127024002166183 0.15566552985950646 -0.9070147970606381 5.0251316471356
                     children [
                       Shape {
                         appearance PBRAppearance {
@@ -1287,8 +2302,8 @@ Robot {
                     }
                   ]
                   endPoint Solid {
-                    translation -1.6249731028776921 -1.603047076545229 0.20315504353949354
-                    rotation -0.34759385205102217 -0.12383562975043434 0.9294316816316546 0.8305794220631809
+                    translation -1.6249731028776924 -1.603047076545229 0.20315504353949376
+                    rotation -0.3475938520510219 -0.12383562975043422 0.9294316816316548 0.8305794220631815
                     children [
                       Shape {
                         appearance PBRAppearance {
@@ -1323,8 +2338,8 @@ Robot {
                     }
                   ]
                   endPoint Solid {
-                    translation -1.6249731028776928 -1.6030470765452298 0.2031550435394936
-                    rotation -0.34759385205102217 -0.12383562975043434 0.9294316816316546 0.8305794220631809
+                    translation -1.6249731028776928 -1.6030470765452298 0.20315504353949382
+                    rotation -0.3475938520510219 -0.12383562975043422 0.9294316816316548 0.8305794220631815
                     children [
                       Shape {
                         appearance PBRAppearance {
@@ -1380,4 +2395,45 @@ Robot {
   ]
   name "turbine2"
   controller "<none>"
+}
+Forest {
+  translation 53 -47 0.5
+  density 0.3
+}
+Forest {
+  translation 53 -87 0.5
+  density 0.3
+}
+Forest {
+  translation 92.5 -47 0.5
+  density 0.3
+}
+Forest {
+  translation 36.5 -64 0.5
+  rotation 0 0 1 -1.05
+}
+Forest {
+  translation 74 -60 0.5
+  rotation 0 0 1 -1.05
+}
+Forest {
+  translation 3 -64 0.5
+  rotation 0 0 1 -1.05
+}
+Forest {
+  translation -33 -60 0.5
+  rotation 0 0 1 -1.05
+}
+Forest {
+  translation 18 -47 0.5
+}
+Forest {
+  translation -15 -47 0.5
+}
+Forest {
+  translation -55 -48 0.5
+}
+Obstacle {
+  translation 20 10 0.025
+  color 1 0.2 0.25098
 }

@@ -1,10 +1,26 @@
 from controller import Robot
-import sys
+import os, sys
+import ast
+import time
+from pathlib import Path
+
 try:
     import numpy as np
 except ImportError:
     sys.exit("Warning: 'numpy' module not found.")
 
+file_path = Path(__file__).parents[2]
+
+file_name = str(file_path)+"\mavic2.txt"
+
+while not os.path.isfile(file_name):
+    time.sleep(5)
+
+file_content = open(file_name, "r").read()   
+
+# os.remove(file_name)
+
+print(file_content)
 
 def clamp(value, value_min, value_max):
     return min(max(value, value_min), value_max)
@@ -105,7 +121,7 @@ class Mavic (Robot):
         yaw_disturbance = 0
 
         # Specify the patrol coordinates
-        waypoints = [[26, -10], [10.5, 8.5], [50.5, 9.5], [26, -10]]
+        waypoints = ast.literal_eval(file_content)
         # target altitude of the robot in meters
         self.target_altitude = 11
 
@@ -126,7 +142,7 @@ class Mavic (Robot):
 
             roll_input = self.K_ROLL_P * clamp(roll, -1, 1) + roll_acceleration + roll_disturbance
             pitch_input = self.K_PITCH_P * clamp(pitch, -1, 1) + pitch_acceleration + pitch_disturbance
-            yaw_input = -0.5
+            yaw_input = 0.3
             clamped_difference_altitude = clamp(self.target_altitude - altitude + self.K_VERTICAL_OFFSET, -1, 1)
             vertical_input = self.K_VERTICAL_P * pow(clamped_difference_altitude, 3.0)
 
@@ -150,3 +166,5 @@ class Mavic (Robot):
 # with a linear and angular damping both of 0.5
 robot = Mavic()
 robot.run()
+
+os.remove(file_name)

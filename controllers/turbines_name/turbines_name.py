@@ -1,5 +1,5 @@
 from controller import Supervisor
-import sys
+import sys, logging
 from pathlib import Path
 
 
@@ -15,13 +15,29 @@ supervisor = Supervisor()
 
 coordinate_list = []
 
-for i in range(int(file_content)):
+def turbine_count(count):
     turbine_name = "turbine"+str(i+1)
     robot_node = supervisor.getFromDef(turbine_name)
-    trans_field = robot_node.getField("translation")
+
+    if not robot_node:
+        return "False"
+    return robot_node
+
+for i in range(int(file_content)):
     
-    values = trans_field.getSFVec3f()
-    coordinate_list.append(values[0:2:])
+    robot_node = turbine_count(i)
+    
+    if robot_node != "False":
+        trans_field = robot_node.getField("translation")
+        
+        values = trans_field.getSFVec3f()
+        
+        if values[0] in range(-100,100) and values[1] in range(-100,100):
+            coordinate_list.append(values[0:2:])
+    else:
+        logging.basicConfig(format='%(levelname)s - %(message)s')
+
+        logging.warning(f"turbine{i+1} does not exist")
 
 waypoint1 = [[i+2, j+2] for i, j in coordinate_list]
 waypoint1.insert(len(coordinate_list),[26, 30])

@@ -19,7 +19,6 @@ while not os.path.isfile(file_name):
 
 file_content = open(file_name, "r").read()   
 
-print(file_content)
 
 
 def clamp(value, value_min, value_max):
@@ -75,11 +74,9 @@ class Mavic (Robot):
     def set_position(self, pos):
         self.current_pose = pos
 
-    def move_to_target(self, waypoints, verbose_movement=False, verbose_target=False):
+    def move_to_target(self, waypoints):#, verbose_movement=False, verbose_target=False):
         if self.target_position[0:2] == [0, 0]:  # Initialization
             self.target_position[0:2] = waypoints[0]
-            if verbose_target:
-                print("First target: ", self.target_position[0:2])
 
         # if the robot is at the position with a precision of target_precision
         if all([abs(x1 - x2) < self.target_precision for (x1, x2) in zip(self.target_position, self.current_pose[0:2])]):
@@ -106,11 +103,6 @@ class Mavic (Robot):
         pitch_disturbance = clamp(
             np.log10(abs(angle_left)), self.MAX_PITCH_DISTURBANCE, 0.1)
 
-        if verbose_movement:
-            distance_left = np.sqrt(((self.target_position[0] - self.current_pose[0]) ** 2) + (
-                (self.target_position[1] - self.current_pose[1]) ** 2))
-            print("remaning angle: {:.4f}, remaning distance: {:.4f}".format(
-                angle_left, distance_left))
         return yaw_disturbance, pitch_disturbance
 
     def run(self):
@@ -155,15 +147,8 @@ class Mavic (Robot):
             self.front_right_motor.setVelocity(-front_right_motor_input)
             self.rear_left_motor.setVelocity(-rear_left_motor_input)
             self.rear_right_motor.setVelocity(rear_right_motor_input)
-            
-            # self.front_left_motor.setVelocity(69)
-            # self.front_right_motor.setVelocity(69)
-            # self.rear_left_motor.setVelocity(69)
-            # self.rear_right_motor.setVelocity(69)
 
 
-# To use this controller, the basicTimeStep should be set to 8 and the defaultDamping
-# with a linear and angular damping both of 0.5
 robot = Mavic()
 robot.run()
 
